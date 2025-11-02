@@ -1,0 +1,5 @@
+com\cinema_ticket\Main.class
+com\cinema_ticket\ui\Foablak.class
+com\cinema_ticket\repo\FilmRepo.class
+com\cinema_ticket\modell\Film.class
+com\cinema_ticket\service\FilmService.class
