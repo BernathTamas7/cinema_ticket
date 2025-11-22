@@ -17,7 +17,7 @@ public class FilmService {
         movies = new ArrayList<>();
     }
 
-    public void addMovie Cl(Film movie){
+    public void addMovie(Film movie){
         movies.add(movie);
     }
 

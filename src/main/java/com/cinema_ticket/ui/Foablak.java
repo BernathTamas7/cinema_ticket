@@ -1,6 +1,7 @@
 package com.cinema_ticket.ui;
 import javax.swing.*;
 import java.time.*;
+import java.util.List;
 
 import com.cinema_ticket.service.FilmService;
 
@@ -9,7 +10,8 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class Foablak extends JFrame{
-    public Foablak(){
+    List<Film> movies = new ArrayList<>();
+    public Foablak(List<Film> m){
         //foablak paraméterei
         super("BME_Mozi");
         this.setSize(800,600);
