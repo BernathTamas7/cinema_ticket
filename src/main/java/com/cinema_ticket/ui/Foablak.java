@@ -2,9 +2,9 @@ package com.cinema_ticket.ui;
 import javax.swing.*;
 import java.time.*;
 
+import com.cinema_ticket.model.Film;
 import com.cinema_ticket.service.FilmService;
 
-import com.cinema_ticket.modell.Film;
 import java.awt.*;
 import java.util.ArrayList;
 

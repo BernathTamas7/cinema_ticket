@@ -1,4 +1,4 @@
-package com.cinema_ticket.modell;
+package com.cinema_ticket.model;
 import java.util.*;
 import java.io.Serializable;
 import java.time.*;
