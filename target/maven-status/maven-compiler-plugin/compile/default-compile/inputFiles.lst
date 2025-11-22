@@ -1,5 +1,12 @@
 C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\repo\FilmRepo.java
 C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\ui\Foablak.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\model\Film.java
 C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\service\FilmService.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\service\TicketService.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\model\Ticket.java
 C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\Main.java
-C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\modell\Film.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\model\TicketType.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\service\SeatService.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\repo\TicketRepo.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\model\Seat.java
+C:\Users\Tomi\Desktop\BME\3.félév\Prog3\cinema_ticket\cinema_ticket\src\main\java\com\cinema_ticket\util\LocalTimeAdapter.java

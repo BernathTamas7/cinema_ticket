@@ -4,11 +4,13 @@ public class Ticket {
     TicketType type;
     int price;
     Film movie;
+    Seat seat;
 
-    public Ticket(TicketType type, Film movie){
+    public Ticket(TicketType type, Film movie, Seat seat){
         this.type = type;
         this.price = type.getPrice();
         this.movie = movie;
+        this.seat = seat;
     }
 
     public TicketType getType() {
@@ -30,5 +32,13 @@ public class Ticket {
 
     public void setMovie(Film movie) {
         this.movie = movie;
+    }
+
+    public Seat getSeat(){
+        return this.seat;
+    }
+
+    public void setSeat(Seat seat){
+        this.seat = seat;
     }
 }

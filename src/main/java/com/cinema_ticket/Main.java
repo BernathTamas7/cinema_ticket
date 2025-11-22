@@ -13,6 +13,9 @@ public class Main {
     public static void main(String[] args){
         List<Film> movies = new ArrayList<>();
         FilmService service = new FilmService(movies);
-        Foablak kep = new Foablak(movies);
+        List<LocalTime> lista = new ArrayList<>();
+        lista.add(LocalTime.now());
+        service.addFilm(new Film(DayOfWeek.MONDAY, lista, "Star Wars",12,"sci-fi",120,3));
+        service.save();
     }
 }

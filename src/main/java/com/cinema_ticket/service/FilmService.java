@@ -1,58 +1,85 @@
 package com.cinema_ticket.service;
-import com.cinema_ticket.modell.Film;
-import com.cinema_ticket.repo.*;
+import com.cinema_ticket.model.*;
+import com.cinema_ticket.repo.FilmRepo;
 
-
-import java.util.ArrayList;
+import java.time.DayOfWeek;
+import java.util.*;
 
 public class FilmService {
+    private List<Film> movies = new ArrayList<>();
     private FilmRepo repo = new FilmRepo();
-    private ArrayList<Film> movies = new ArrayList<>();
 
-    public FilmService(ArrayList<Film> tmp){
-        movies = tmp;
+
+    public FilmService(List<Film> movies){
+        this.movies = movies;
     }
 
     public FilmService(){
-        movies = new ArrayList<>();
+        this.movies = new ArrayList<>();
+        repo = new FilmRepo();
     }
 
-    public void addMovie Cl(Film movie){
-        movies.add(movie);
-    }
-
-    public ArrayList<Film> getMovies(){
+    public List<Film> getAllMovies(){
         return movies;
     }
 
-    public void removeFilm(String nev){
-       movies.removeIf((film)->film.getTitle().equals(nev));
+    public void setMovies(List<Film> movies){
+        this.movies = movies;
     }
 
-    public void removeFilm(int index){
-        movies.remove(index);
+    public void addFilm(Film movie){
+        movies.add(movie);
     }
 
-    public Film searchFilm(String nev){
-        for(int i = 0; i < movies.size(); i++){
-            if(movies.get(i).getTitle().equals(nev)){
-                return movies.get(i);
+    public void removeByName(String name){
+        movies.removeIf(f -> f.getTitle().equals(name));
+    }
+
+    public List<Film> filterByNames(String param){
+        List<Film> newList = new ArrayList<>();
+        for(Film f : movies){
+            if(f.getTitle().contains(param)){
+                newList.add(f);
             }
         }
-        return null;
-    }
-    
-    public void saveAll(){
-        repo.save(movies);
+        return newList;
     }
 
-    public void loadAll(){
-        movies = repo.load();
+    public List<Film> listByDay(DayOfWeek day){
+        List<Film> newList = new ArrayList<>();
+        for(Film f : movies){
+            if(f.getDay().equals(day)){
+                newList.add(f);
+            }
+        }
+        return newList;
     }
 
-    public void filmPrintToLabel(Film tmp){
-        System.out.println(tmp.getTitle());
-        System.out.println(tmp.getAgeLimit() + " | " + tmp.getType() + " | " + tmp.getLength());
-        System.out.println(tmp.getDimension());
+    public List<Film> listByName(String param){
+        List<Film> newList = new ArrayList<>();
+        for(Film f : movies){
+            if(f.getTitle().equals(param)){
+                newList.add(f);
+            }
+        }
+        return newList;
+    }
+
+    public List<Film> filterByType(String type){
+        List<Film> newList = new ArrayList<>();
+        for(Film f : movies){
+            if(f.getType().equals(type)){
+                newList.add(f);
+            }
+        }
+        return newList;
+    }
+
+    public void save(){
+        repo.saveFilms(movies);
+    }
+
+    public void load(){
+        movies = repo.loadFilms();
     }
 }

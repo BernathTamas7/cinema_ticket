@@ -16,18 +16,21 @@
   </properties>
 
   <dependencies>
-    <!-- JUnit 5 teszteléshez -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter</artifactId>
       <version>5.10.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>com.google.code.gson</groupId>
+      <artifactId>gson</artifactId>
+      <version>2.10.1</version>
+    </dependency>
   </dependencies>
 
   <build>
     <plugins>
-      <!-- Főosztály futtatásához -->
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>exec-maven-plugin</artifactId>
@@ -37,7 +40,6 @@
         </configuration>
       </plugin>
 
-      <!-- Fordításhoz szükséges plugin -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
