@@ -16,7 +16,7 @@ public class Film implements Serializable{
 
     public Film(){
         day = DayOfWeek.MONDAY;
-        dates = null;
+        dates = new ArrayList<>();
         title = null;
         age_limit = 0;
         type = null;
@@ -60,5 +60,33 @@ public class Film implements Serializable{
 
     public int getDimension() {
         return dimension;
+    }
+
+    public void setDay(DayOfWeek day) {
+        this.day = day;
+    }
+
+    public void setDates(List<LocalTime> dates) {
+        this.dates = dates;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public void setAgeLimit(int age_limit) {
+        this.age_limit = age_limit;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public void setDimension(int dimension) {
+        this.dimension = dimension;
     }
 }
