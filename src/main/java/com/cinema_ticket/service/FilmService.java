@@ -82,4 +82,8 @@ public class FilmService {
     public void load(){
         movies = repo.loadFilms();
     }
+
+    public void removeAll(){
+        movies.clear();
+    }
 }

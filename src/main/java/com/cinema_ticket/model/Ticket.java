@@ -1,6 +1,8 @@
 package com.cinema_ticket.model;
 
-public class Ticket {
+import java.io.Serializable;
+
+public class Ticket implements Serializable{
     TicketType type;
     int price;
     Film movie;

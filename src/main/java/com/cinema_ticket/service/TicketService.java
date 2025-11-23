@@ -9,12 +9,20 @@ public class TicketService {
     private Ticket ticket;
     private TicketRepo repo = new TicketRepo();
 
+    public TicketService(Ticket ticket){
+        this.ticket = ticket;
+    }
+
     public void save(){
         repo.save(ticket);
     }
 
     public void load(){
         ticket = repo.load();
+    }
+
+    public void delete(){
+        ticket = null;
     }
 
     public void printTicket(){
