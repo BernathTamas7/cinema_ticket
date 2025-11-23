@@ -1,18 +1,19 @@
 package com.cinema_ticket.model;
 
 import java.io.Serializable;
+import java.util.*;
 
 public class Ticket implements Serializable{
     TicketType type;
     int price;
     Film movie;
-    Seat seat;
+    List<Seat> seats = new ArrayList<>();
 
-    public Ticket(TicketType type, Film movie, Seat seat){
+    public Ticket(TicketType type, Film movie, List<Seat> seats){
         this.type = type;
         this.price = type.getPrice();
         this.movie = movie;
-        this.seat = seat;
+        this.seats = seats;
     }
 
     public TicketType getType() {
@@ -36,11 +37,11 @@ public class Ticket implements Serializable{
         this.movie = movie;
     }
 
-    public Seat getSeat(){
-        return this.seat;
+    public List<Seat> getSeat(){
+        return this.seats;
     }
 
-    public void setSeat(Seat seat){
-        this.seat = seat;
+    public void setSeat(List<Seat> seat){
+        this.seats = seat;
     }
 }

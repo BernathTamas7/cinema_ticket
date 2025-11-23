@@ -4,11 +4,14 @@ public class Seat {
     private int id;
     private int row;
     private int column;
+    private SeatStatus status;
 
-    public Seat(int id, int row, int column){
+
+    public Seat(int id, int row, int column, SeatStatus status){
         this.id = id;
         this.row = row;
         this.column = column;
+        this.status = status;
     }
 
     public Seat(){
@@ -39,5 +42,13 @@ public class Seat {
 
     public void setColumn(int column) {
         this.column = column;
+    }
+
+    public void setStatus(SeatStatus status){
+        this.status = status;
+    }
+
+    public SeatStatus getStatus(){
+        return status;
     }
 }

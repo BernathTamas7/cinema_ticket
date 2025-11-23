@@ -25,12 +25,6 @@ public class Main {
         lista.add(LocalTime.now());
         service.addFilm(new Film(DayOfWeek.MONDAY, lista, "Star Wars",12,"sci-fi",120,3));
         service.save();
-
-        Ticket uj = new Ticket(TicketType.ADULT, new Film(DayOfWeek.MONDAY, lista, "Star Wars",12,"sci-fi",120,3), new Seat(0, 1, 1));
-        TicketService ticketService = new TicketService(uj);
-        ticketService.save();
-        ticketService.delete();
-        ticketService.printTicket();
         
     }
 }
