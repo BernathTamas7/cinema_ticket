@@ -12,7 +12,7 @@ public class Film implements Serializable{
     private int age_limit;
     private MovieType type;
     private int length;
-    private int dimension;
+    private Integer dimension;
 
     public Film(){
         day = DayOfWeek.MONDAY;
@@ -58,7 +58,7 @@ public class Film implements Serializable{
         return length;
     }
 
-    public int getDimension() {
+    public Integer getDimension() {
         return dimension;
     }
 

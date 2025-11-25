@@ -15,7 +15,7 @@ public class Main {
         List<LocalTime> lista = new ArrayList<>();
         lista.add(LocalTime.now());
         service.addFilm(new Film(DayOfWeek.MONDAY, lista, "Star Wars",12,MovieType.ACTION,120,3));
-        service.addFilm(new Film(DayOfWeek.WEDNESDAY, lista, "Zootopia 2",12,MovieType.ANIMATION,90,2));
+        service.addFilm(new Film(DayOfWeek.WEDNESDAY, lista, "Zootopia 2",12,MovieType.ANIMATION,90,3));
         service.save();
         MainWindow view = new MainWindow(service);
         

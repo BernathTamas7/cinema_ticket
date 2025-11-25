@@ -98,30 +98,56 @@ public class MainWindow extends JFrame{
         JPanel eastPanel = new JPanel();
         eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.Y_AXIS));
 
+        // Tipus alapu szurés
         MovieType[] movieTypes = MovieType.values();
-        JComboBox comboBox = new JComboBox<>(movieTypes);
+        JComboBox comboBoxType = new JComboBox<>(movieTypes);
 
-        eastPanel.add(comboBox,BorderLayout.EAST);
-        this.add(eastPanel,BorderLayout.EAST);
+        eastPanel.add(comboBoxType);
+        
 
-        comboBox.addActionListener(e -> {
+        comboBoxType.addActionListener(e -> {
             List<Film> sortedMovies = new ArrayList<>();
-            List<MovieType> lista = new ArrayList<>();
             for(Film f : service.getAllMovies()){
-                if(f.getType().equals(comboBox.getSelectedItem())){
-                    lista.add(f.getType());
-                }
-            }
-            for(Film f : service.getAllMovies()){
-                if(lista.contains(f.getType())){
+                if(f.getType().equals(comboBoxType.getSelectedItem())){
                     sortedMovies.add(f);
                 }
             }
             movieListPanel.showMovies(sortedMovies);      
         });
 
+        Integer[] dim = new Integer[]{2,3,4};
+        JComboBox comboBoxDimension = new JComboBox<>(dim);
+        eastPanel.add(comboBoxDimension);
         
+        
+        comboBoxDimension.addActionListener(e -> {
+            List<Film> sortedMovies = new ArrayList<>();
+            for(Film f : service.getAllMovies()){
+                if(f.getDimension().equals(comboBoxDimension.getSelectedItem())){
+                    sortedMovies.add(f);
+                }
+            }
+            movieListPanel.showMovies(sortedMovies);      
+        });
 
+        // Cim alapu kereseshez JTextFiled hozzaadasa
+        JTextField searchField = new JTextField();
+        eastPanel.add(searchField);
+
+        searchField.addActionListener(e -> {
+            System.out.println("lefutott");
+            String text = searchField.getText();
+            List<Film> sortedMovies = new ArrayList<>();
+            for(Film f : service.getAllMovies()){
+                if(f.getTitle().contains(text)){
+                    sortedMovies.add(f);
+                }
+            }
+            movieListPanel.showMovies(sortedMovies);
+        });
+
+        
+        this.add(eastPanel,BorderLayout.EAST);
         this.setVisible(true);
     }
 
