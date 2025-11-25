@@ -7,18 +7,20 @@ public class Seats {
 
     public Seats(int roomId){
         this.roomId = roomId;
+        this.seats = new Seat[10][10];
         for(int i = 0; i < 10; i++){
             for(int j = 0; j < 10; j++){
-                seats[i][j].setId((i*10+j*1)+1);
-                seats[i][j].setRow(i+1);
-                seats[i][j].setColumn(j+1);
+                Seat seat = new Seat();
+                seat.setId((i*10+j*1)+1);
+                seat.setRow(i+1);
+                seat.setColumn(j+1);
                 double rnd = Math.random();
                 if(rnd < 0.2){
-                    seats[i][j].setStatus(SeatStatus.RESERVED);
+                    seat.setStatus(SeatStatus.RESERVED);
                 }else{
-                    seats[i][j].setStatus(SeatStatus.FREE);
+                    seat.setStatus(SeatStatus.FREE);
                 }
-                
+                seats[i][j] = seat;
             }
         }
     }

@@ -65,7 +65,7 @@ public class FilmService {
         return newList;
     }
 
-    public List<Film> filterByType(String type){
+    public List<Film> filterByType(MovieType type){
         List<Film> newList = new ArrayList<>();
         for(Film f : movies){
             if(f.getType().equals(type)){

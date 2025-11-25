@@ -10,7 +10,7 @@ public class Film implements Serializable{
     private List<LocalTime> dates = new ArrayList<>(); 
     private String title;
     private int age_limit;
-    private String type;
+    private MovieType type;
     private int length;
     private int dimension;
 
@@ -24,7 +24,7 @@ public class Film implements Serializable{
         dimension = 0;
     }
 
-    public Film(DayOfWeek d, List<LocalTime> ti, String tit, int al, String ty, int le, int dim){
+    public Film(DayOfWeek d, List<LocalTime> ti, String tit, int al, MovieType ty, int le, int dim){
         day = d;
         dates = ti;
         title = tit;
@@ -50,7 +50,7 @@ public class Film implements Serializable{
         return age_limit;
     }
 
-    public String getType() {
+    public MovieType getType() {
         return type;
     }
 
@@ -78,7 +78,7 @@ public class Film implements Serializable{
         this.age_limit = age_limit;
     }
 
-    public void setType(String type) {
+    public void setType(MovieType type) {
         this.type = type;
     }
 
