@@ -8,9 +8,10 @@ public class SeatPickPanel extends JFrame{
     Film movie;
     SeatsServise seatService;
     int ticketNumber = 0;
-    public SeatPickPanel(SeatsServise s){
+    public SeatPickPanel(SeatsServise s, Film m){
         super("Seat_Pick");
         seatService = s;
+        movie = m;
         this.setSize(800,600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
@@ -71,11 +72,19 @@ public class SeatPickPanel extends JFrame{
         eastPanel.add(backButton);
         eastPanel.add(confirmButton);
 
-        
-        
-        
+        //baloldali panel keszitese es film tartalmának kiirasa
+        JPanel westPanel = new JPanel(new GridLayout(6, 1));
+        JLabel title = new JLabel("<html><p width='100'>" + movie.getTitle() + "</p></html>");
+        JLabel length = new JLabel("<html><p width='100'>" + movie.getLength() + " minutes</p></html>");
+        JLabel age = new JLabel("<html><p width='100'>age limit: " + movie.getAgeLimit() + "</p></html>");
+        JLabel type = new JLabel("<html><p width='100'>type: " + movie.getType() + "</p></html>");
+        westPanel.add(title);
+        westPanel.add(length);
+        westPanel.add(age);
+        westPanel.add(type);
 
 
+        this.add(westPanel, BorderLayout.WEST);
         this.add(eastPanel, BorderLayout.EAST);
         this.add(downPanel, BorderLayout.SOUTH);
         this.add(upperPanel, BorderLayout.NORTH);
