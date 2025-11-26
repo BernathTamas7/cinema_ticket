@@ -22,6 +22,8 @@ public class MovieListPanel extends JPanel {
         for(Film film : movies){
             JPanel newPanel = new JPanel();
             newPanel.add(new JLabel("<html>" + "Title: " + film.getTitle() + "<br>"+ "Length: " + film.getLength() + "<br>"+ "Age limit: " + film.getAgeLimit()+ "<br>" + "Type: " + film.getType() + "</html>"));
+            JButton btn = new JButton("reservation");
+            newPanel.add(btn);
             mainPanel.add(newPanel);
         }
         mainPanel.revalidate();
