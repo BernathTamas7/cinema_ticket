@@ -17,7 +17,9 @@ public class Main {
         service.addFilm(new Film(DayOfWeek.MONDAY, lista, "Star Wars",12,MovieType.ACTION,120,3));
         service.addFilm(new Film(DayOfWeek.WEDNESDAY, lista, "Zootopia 2",12,MovieType.ANIMATION,90,3));
         service.save();
-        MainWindow view = new MainWindow(service);
+        SeatsServise seatsServise = new SeatsServise(0);
+        SeatPickPanel panel = new SeatPickPanel(seatsServise);
+        //MainWindow view = new MainWindow(service);
         
     }
 }

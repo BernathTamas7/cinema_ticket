@@ -102,6 +102,8 @@ public class MainWindow extends JFrame{
         MovieType[] movieTypes = MovieType.values();
         JComboBox comboBoxType = new JComboBox<>(movieTypes);
 
+        JLabel labelType = new JLabel("Styles");
+        eastPanel.add(labelType);
         eastPanel.add(comboBoxType);
         
 
@@ -117,6 +119,8 @@ public class MainWindow extends JFrame{
 
         Integer[] dim = new Integer[]{2,3,4};
         JComboBox comboBoxDimension = new JComboBox<>(dim);
+        JLabel labelDimension = new JLabel("Dimension");
+        eastPanel.add(labelDimension);
         eastPanel.add(comboBoxDimension);
         
         
@@ -132,6 +136,11 @@ public class MainWindow extends JFrame{
 
         // Cim alapu kereseshez JTextFiled hozzaadasa
         JTextField searchField = new JTextField();
+        JLabel labelTitle = new JLabel("Title");
+        eastPanel.add(labelTitle);
+        searchField.setPreferredSize(new Dimension(150, 75));
+
+        searchField.setMaximumSize(new Dimension(150, 75));
         eastPanel.add(searchField);
 
         searchField.addActionListener(e -> {
@@ -145,6 +154,7 @@ public class MainWindow extends JFrame{
             }
             movieListPanel.showMovies(sortedMovies);
         });
+
 
         
         this.add(eastPanel,BorderLayout.EAST);
