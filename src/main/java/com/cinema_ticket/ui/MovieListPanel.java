@@ -3,21 +3,26 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 
 import com.cinema_ticket.model.*;
+import com.cinema_ticket.service.FilmService;
 
 import java.time.DayOfWeek;
 import java.time.LocalTime;
 import java.util.*;
 
 public class MovieListPanel extends JPanel {
-
+    private MainWindow window;
+    private FilmService service;
     private JPanel mainPanel;
     
-    public MovieListPanel(){
+    public MovieListPanel(MainWindow window, FilmService service) {
+        this.window = window;
+        this.service = service;
         mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 
         add(mainPanel);
     }
+
 
     public void showMovies(List<Film> movies, DayOfWeek day){
         for(Film film : movies){
@@ -30,6 +35,10 @@ public class MovieListPanel extends JPanel {
             if(film.getDates().get(day) != null){
                 for(int i = 0;i < film.getDates().get(day).size(); i++){
                     JButton btn = new JButton(""+film.getDates().get(day).get(i));
+                    btn.addActionListener(e -> {
+                        window.seatPickPanel.loadFilm(film);
+                        window.switchView(window.seatPickPanel);
+                    });
                     newPanel.add(btn);
                 }
             }

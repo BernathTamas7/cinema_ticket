@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.cinema_ticket.model.*;
 import com.cinema_ticket.service.FilmService;
+import com.cinema_ticket.service.SeatsServise;
 
 import java.awt.*;
 import java.time.DayOfWeek;
@@ -11,14 +12,25 @@ import java.util.ArrayList;
 
 public class MainWindow extends JFrame{
     private final FilmService service;
-    public MainWindow(FilmService service){
+    private final SeatsServise seatService;
+    private JPanel centerPanel;
+    public MovieListPanel movieListPanel;
+    public SeatPickPanel seatPickPanel;
+
+    public MainWindow(FilmService service, SeatsServise seatsServise){
         //foablak paraméterei
         super("BME_Mozi");
-        MovieListPanel movieListPanel = new MovieListPanel();
+        this.service = service;
+        this.seatService = seatsServise;
+        //center panel letrehozasa
+        centerPanel = new JPanel(new BorderLayout());
+        //attributumok inicializalasa
+        movieListPanel = new MovieListPanel(this, service); 
+        seatPickPanel = new SeatPickPanel(this, seatService);
+        //meret 
         this.setSize(800,600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new BorderLayout());
-        this.service = service;
 
         //kep meretezese és beszurasa
         ImageIcon image = new ImageIcon("data/mozi_kep.png");
@@ -54,9 +66,11 @@ public class MainWindow extends JFrame{
         upperPanel.add(saButton);
         upperPanel.add(suButton);
 
-        this.add(movieListPanel,BorderLayout.CENTER);
-        this.add(upperPanel,BorderLayout.NORTH);
-        this.add(greetPanel,BorderLayout.SOUTH);
+        centerPanel.add(movieListPanel, BorderLayout.CENTER);
+        centerPanel.add(upperPanel,BorderLayout.NORTH);
+        centerPanel.add(greetPanel,BorderLayout.SOUTH);
+        this.add(centerPanel);
+        
 
         //action listenerek hozzaadasa gombokhoz
         mButton.addActionListener( e -> {
@@ -161,11 +175,15 @@ public class MainWindow extends JFrame{
                 movieListPanel.showMovies(sortedMovies,day); 
             }   
         });
-
-
         
-        this.add(eastPanel,BorderLayout.EAST);
+        centerPanel.add(eastPanel,BorderLayout.EAST);
         this.setVisible(true);
     }
 
+    public void switchView(JPanel newPanel){
+        centerPanel.removeAll();
+        centerPanel.add(newPanel, BorderLayout.CENTER);
+        centerPanel.revalidate();
+        centerPanel.repaint();
+    }
 }

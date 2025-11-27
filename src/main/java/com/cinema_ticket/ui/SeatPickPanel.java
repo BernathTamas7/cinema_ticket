@@ -4,16 +4,21 @@ import com.cinema_ticket.service.SeatsServise;
 import javax.swing.*;
 import java.awt.*;
 
-public class SeatPickPanel extends JFrame{
+public class SeatPickPanel extends JPanel{
     Film movie;
+    MainWindow mainWindow;
     SeatsServise seatService;
     int ticketNumber = 0;
-    public SeatPickPanel(SeatsServise s, Film m){
-        super("Seat_Pick");
+    private JLabel titleLabel;
+    private JLabel lengthLabel;
+    private JLabel ageLabel;
+    private JLabel typeLabel;
+    private JLabel ticketNumberLabel;
+    private JPanel gridPanel;
+
+    public SeatPickPanel(MainWindow main,SeatsServise s){
         seatService = s;
-        movie = m;
-        this.setSize(800,600);
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        mainWindow = main;
         setLayout(new BorderLayout());
 
         //also panel letrehozasa
@@ -24,13 +29,72 @@ public class SeatPickPanel extends JFrame{
         JLabel imageLabel_2 = new JLabel(new ImageIcon(scaled_2));
         imageLabel_2.setPreferredSize(new Dimension(60, 45));
         downPanel.add(imageLabel_2);
-
-        //jegyszamlalo letrehozasa es also panelhez adasa
-        String printOut = "" + ticketNumber;
-        JLabel ticketNumberLabel = new JLabel(printOut);
+        ticketNumberLabel = new JLabel("0");
         downPanel.add(ticketNumberLabel);
 
-        JPanel gridPanel = new JPanel(new GridLayout(10,10));
+        
+        /*String printOut = "" + ticketNumber;
+        JLabel ticketNumberLabel = new JLabel(printOut);
+        downPanel.add(ticketNumberLabel);*/
+        titleLabel = new JLabel();
+        lengthLabel = new JLabel();
+        ageLabel = new JLabel();
+        typeLabel = new JLabel();
+
+        //baloldali panel keszitese es film tartalmának kiirasa
+        JPanel westPanel = new JPanel(new GridLayout(6, 1));
+        westPanel.add(titleLabel);
+        westPanel.add(lengthLabel);
+        westPanel.add(ageLabel);
+        westPanel.add(typeLabel);
+
+        gridPanel = new JPanel(new GridLayout(10,10));
+        
+
+        //felso panel letrehozasa es kep beszurasa es meretezese
+        ImageIcon icon = new ImageIcon("data/vaszon_kep.png");
+        Image scaled = icon.getImage().getScaledInstance(800, 80, Image.SCALE_SMOOTH);
+        JLabel imageLabel = new JLabel(new ImageIcon(scaled));
+        imageLabel.setPreferredSize(new Dimension(800, 80));
+        JPanel upperPanel = new JPanel();
+        upperPanel.add(imageLabel);
+
+        
+
+        //jobb oldali panel elkeszitese, gombok rarakasa
+        JPanel eastPanel = new JPanel(new GridLayout(2, 1));
+        JButton backButton = new JButton("Back");
+        JButton confirmButton = new JButton("Confirm");
+        backButton.addActionListener(e -> {
+            mainWindow.switchView(mainWindow.movieListPanel);
+        });
+        eastPanel.add(backButton);
+        eastPanel.add(confirmButton);
+
+
+        //panelek fopanelhez adasa
+        this.add(westPanel, BorderLayout.WEST);
+        this.add(eastPanel, BorderLayout.EAST);
+        this.add(downPanel, BorderLayout.SOUTH);
+        this.add(upperPanel, BorderLayout.NORTH);
+        this.add(gridPanel, BorderLayout.CENTER);
+    }
+
+    public void loadFilm(Film m) {
+        this.movie = m;
+
+        titleLabel.setText("<html><p width='100'>" + movie.getTitle() + "</p></html>");
+        lengthLabel.setText(movie.getLength() + " minutes");
+        ageLabel.setText("age limit: " + movie.getAgeLimit());
+        typeLabel.setText("type: " + movie.getType());
+        rebuildSeats();
+    }
+
+    public void rebuildSeats(){
+        ticketNumber = 0;
+        ticketNumberLabel.setText("0");
+        gridPanel.removeAll();
+
         for(int i = 1; i < 11; i++){
             for(int j = 1; j < 11; j++){
                 JButton button = new JButton();
@@ -54,41 +118,7 @@ public class SeatPickPanel extends JFrame{
                 gridPanel.add(button);
             }
         }
-
-        //felso panel letrehozasa es kep beszurasa es meretezese
-        ImageIcon icon = new ImageIcon("data/vaszon_kep.png");
-        Image scaled = icon.getImage().getScaledInstance(800, 80, Image.SCALE_SMOOTH);
-        JLabel imageLabel = new JLabel(new ImageIcon(scaled));
-        imageLabel.setPreferredSize(new Dimension(800, 80));
-        JPanel upperPanel = new JPanel();
-        upperPanel.add(imageLabel);
-
-        
-
-        //jobb oldali panel elkeszitese, gombok rarakasa
-        JPanel eastPanel = new JPanel(new GridLayout(2, 1));
-        JButton backButton = new JButton("Back");
-        JButton confirmButton = new JButton("Confirm");
-        eastPanel.add(backButton);
-        eastPanel.add(confirmButton);
-
-        //baloldali panel keszitese es film tartalmának kiirasa
-        JPanel westPanel = new JPanel(new GridLayout(6, 1));
-        JLabel title = new JLabel("<html><p width='100'>" + movie.getTitle() + "</p></html>");
-        JLabel length = new JLabel("<html><p width='100'>" + movie.getLength() + " minutes</p></html>");
-        JLabel age = new JLabel("<html><p width='100'>age limit: " + movie.getAgeLimit() + "</p></html>");
-        JLabel type = new JLabel("<html><p width='100'>type: " + movie.getType() + "</p></html>");
-        westPanel.add(title);
-        westPanel.add(length);
-        westPanel.add(age);
-        westPanel.add(type);
-
-
-        this.add(westPanel, BorderLayout.WEST);
-        this.add(eastPanel, BorderLayout.EAST);
-        this.add(downPanel, BorderLayout.SOUTH);
-        this.add(upperPanel, BorderLayout.NORTH);
-        this.add(gridPanel, BorderLayout.CENTER);
-        this.setVisible(true);
+        gridPanel.revalidate();
+        gridPanel.repaint();
     }
 }

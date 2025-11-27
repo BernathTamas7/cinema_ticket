@@ -28,9 +28,7 @@ public class Main {
         FilmService service = new FilmService(movies);
         service.addFilm(new Film(map1, "Star Wars",12,MovieType.ACTION,120,3));
         service.save();
-        SeatsServise seatsServise = new SeatsServise(0);
-        SeatPickPanel panel = new SeatPickPanel(seatsServise, new Film(map1, "Star wars 3: The revenge of the siths",12,MovieType.ACTION,120,3));
-        //MainWindow view = new MainWindow(service);
-        
+        SeatsServise seatService = new SeatsServise(1);
+        MainWindow view = new MainWindow(service,seatService);
     }
 }
