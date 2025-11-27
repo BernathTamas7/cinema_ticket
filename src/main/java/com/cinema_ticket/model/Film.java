@@ -6,8 +6,7 @@ import java.time.*;
 
 
 public class Film implements Serializable{
-    private DayOfWeek day;
-    private List<LocalTime> dates = new ArrayList<>(); 
+    private Map<DayOfWeek,List<LocalTime>> dates;
     private String title;
     private int age_limit;
     private MovieType type;
@@ -15,8 +14,7 @@ public class Film implements Serializable{
     private Integer dimension;
 
     public Film(){
-        day = DayOfWeek.MONDAY;
-        dates = new ArrayList<>();
+        dates = new HashMap<>();
         title = null;
         age_limit = 0;
         type = null;
@@ -24,9 +22,8 @@ public class Film implements Serializable{
         dimension = 0;
     }
 
-    public Film(DayOfWeek d, List<LocalTime> ti, String tit, int al, MovieType ty, int le, int dim){
-        day = d;
-        dates = ti;
+    public Film(Map<DayOfWeek, List<LocalTime>> d, String tit, int al, MovieType ty, int le, int dim){
+        dates = d;
         title = tit;
         age_limit = al;
         type = ty;
@@ -34,11 +31,7 @@ public class Film implements Serializable{
         dimension = dim;
     }
 
-     public DayOfWeek getDay() {
-        return day;
-    }
-
-    public List<LocalTime> getDates() {
+    public Map<DayOfWeek,List<LocalTime>> getDates() {
         return dates;
     }
 
@@ -62,12 +55,9 @@ public class Film implements Serializable{
         return dimension;
     }
 
-    public void setDay(DayOfWeek day) {
-        this.day = day;
-    }
-
-    public void setDates(List<LocalTime> dates) {
-        this.dates = dates;
+    //kilistázza hogy parameterkent kapott napon milyen idopontban vetitik a filmet
+    public List<LocalTime> getDatesByDay(DayOfWeek day){
+        return dates.get(day);
     }
 
     public void setTitle(String title) {

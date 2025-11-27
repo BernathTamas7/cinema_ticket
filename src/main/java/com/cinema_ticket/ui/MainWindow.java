@@ -60,38 +60,38 @@ public class MainWindow extends JFrame{
 
         //action listenerek hozzaadasa gombokhoz
         mButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.MONDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.MONDAY),DayOfWeek.MONDAY);
         });
 
         tuButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.TUESDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.TUESDAY),DayOfWeek.TUESDAY);
         });
 
         wButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.WEDNESDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.WEDNESDAY),DayOfWeek.WEDNESDAY);
         });
 
         thButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.THURSDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.THURSDAY),DayOfWeek.THURSDAY);
         });
         
         fButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.FRIDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.FRIDAY),DayOfWeek.FRIDAY);
         });
 
         saButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.SATURDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.SATURDAY), DayOfWeek.SATURDAY);
         });
 
         suButton.addActionListener( e -> {
-            movieListPanel.showMovies(service.listByDay(DayOfWeek.SUNDAY));
-            System.out.println("actionlistener" + service.getAllMovies().size());
+            movieListPanel.clear();
+            movieListPanel.showMovies(service.listByDay(DayOfWeek.SUNDAY),DayOfWeek.SUNDAY);
         });
 
         //jobb oldali combobox létrehozása
@@ -106,32 +106,38 @@ public class MainWindow extends JFrame{
         eastPanel.add(labelType);
         eastPanel.add(comboBoxType);
         
-
+        //listázás movie Type alapjan
         comboBoxType.addActionListener(e -> {
-            List<Film> sortedMovies = new ArrayList<>();
-            for(Film f : service.getAllMovies()){
-                if(f.getType().equals(comboBoxType.getSelectedItem())){
-                    sortedMovies.add(f);
+            movieListPanel.clear();
+            for(DayOfWeek day : DayOfWeek.values()){
+                List<Film> sortedMovies = new ArrayList<>();
+                for(Film f : service.getAllMovies()){
+                    if(f.getType().equals(comboBoxType.getSelectedItem())){
+                        sortedMovies.add(f);
+                    }
                 }
-            }
-            movieListPanel.showMovies(sortedMovies);      
+                movieListPanel.showMovies(sortedMovies,day); 
+            } 
         });
-
+        
         Integer[] dim = new Integer[]{2,3,4};
         JComboBox comboBoxDimension = new JComboBox<>(dim);
         JLabel labelDimension = new JLabel("Dimension");
         eastPanel.add(labelDimension);
         eastPanel.add(comboBoxDimension);
         
-        
+        //dimenzio alapu kereses
         comboBoxDimension.addActionListener(e -> {
-            List<Film> sortedMovies = new ArrayList<>();
-            for(Film f : service.getAllMovies()){
-                if(f.getDimension().equals(comboBoxDimension.getSelectedItem())){
-                    sortedMovies.add(f);
+            movieListPanel.clear();
+            for(DayOfWeek day : DayOfWeek.values()){
+                List<Film> sortedMovies = new ArrayList<>();
+                for(Film f : service.getAllMovies()){
+                    if(f.getDimension().equals(comboBoxDimension.getSelectedItem())){
+                        sortedMovies.add(f);
+                    }
                 }
-            }
-            movieListPanel.showMovies(sortedMovies);      
+                movieListPanel.showMovies(sortedMovies,day); 
+            }     
         });
 
         // Cim alapu kereseshez JTextFiled hozzaadasa
@@ -144,15 +150,16 @@ public class MainWindow extends JFrame{
         eastPanel.add(searchField);
 
         searchField.addActionListener(e -> {
-            System.out.println("lefutott");
-            String text = searchField.getText();
-            List<Film> sortedMovies = new ArrayList<>();
-            for(Film f : service.getAllMovies()){
-                if(f.getTitle().contains(text)){
-                    sortedMovies.add(f);
+            movieListPanel.clear();
+            for(DayOfWeek day : DayOfWeek.values()){
+                List<Film> sortedMovies = new ArrayList<>();
+                for(Film f : service.getAllMovies()){
+                    if(f.getTitle().contains(searchField.getText())){
+                        sortedMovies.add(f);
+                    }
                 }
-            }
-            movieListPanel.showMovies(sortedMovies);
+                movieListPanel.showMovies(sortedMovies,day); 
+            }   
         });
 
 

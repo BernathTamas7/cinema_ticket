@@ -48,7 +48,7 @@ public class FilmService {
     public List<Film> listByDay(DayOfWeek day){
         List<Film> newList = new ArrayList<>();
         for(Film f : movies){
-            if(f.getDay().equals(day)){
+            if(f.getDatesByDay(day) != null){
                 newList.add(f);
             }
         }
