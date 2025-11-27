@@ -9,6 +9,7 @@ public class SeatPickPanel extends JPanel{
     MainWindow mainWindow;
     SeatsServise seatService;
     int ticketNumber = 0;
+
     private JLabel titleLabel;
     private JLabel lengthLabel;
     private JLabel ageLabel;
@@ -33,9 +34,7 @@ public class SeatPickPanel extends JPanel{
         downPanel.add(ticketNumberLabel);
 
         
-        /*String printOut = "" + ticketNumber;
-        JLabel ticketNumberLabel = new JLabel(printOut);
-        downPanel.add(ticketNumberLabel);*/
+        //labelek inicializalasa
         titleLabel = new JLabel();
         lengthLabel = new JLabel();
         ageLabel = new JLabel();
@@ -58,8 +57,6 @@ public class SeatPickPanel extends JPanel{
         imageLabel.setPreferredSize(new Dimension(800, 80));
         JPanel upperPanel = new JPanel();
         upperPanel.add(imageLabel);
-
-        
 
         //jobb oldali panel elkeszitese, gombok rarakasa
         JPanel eastPanel = new JPanel(new GridLayout(2, 1));

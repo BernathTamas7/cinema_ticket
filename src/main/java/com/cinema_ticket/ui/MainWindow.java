@@ -13,20 +13,27 @@ import java.util.ArrayList;
 public class MainWindow extends JFrame{
     private final FilmService service;
     private final SeatsServise seatService;
-    private JPanel centerPanel;
     public MovieListPanel movieListPanel;
     public SeatPickPanel seatPickPanel;
 
+    public JPanel eastPanel;
+    public JPanel upperPanel;
+    public JPanel greetPanel;
+    
+    public JPanel centerPanel;
     public MainWindow(FilmService service, SeatsServise seatsServise){
         //foablak paraméterei
         super("BME_Mozi");
         this.service = service;
         this.seatService = seatsServise;
+
         //center panel letrehozasa
         centerPanel = new JPanel(new BorderLayout());
+
         //attributumok inicializalasa
         movieListPanel = new MovieListPanel(this, service); 
         seatPickPanel = new SeatPickPanel(this, seatService);
+        
         //meret 
         this.setSize(800,600);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -51,12 +58,12 @@ public class MainWindow extends JFrame{
 
         //Udvozlo cimke letrehozasa
         JLabel greetCimke = new JLabel("Udvozollek a mozi weboldalan");
-        JPanel greetPanel = new JPanel();
+        greetPanel = new JPanel();
         greetPanel.setBackground(Color.ORANGE);
         greetPanel.add(greetCimke);
 
         //nap panel létrehozása, gombok hozzáadása
-        JPanel upperPanel = new JPanel(new GridLayout(1,8));
+        upperPanel = new JPanel(new GridLayout(1,8));
         upperPanel.add(imageLabel);
         upperPanel.add(mButton);
         upperPanel.add(tuButton);
@@ -67,8 +74,8 @@ public class MainWindow extends JFrame{
         upperPanel.add(suButton);
 
         centerPanel.add(movieListPanel, BorderLayout.CENTER);
-        centerPanel.add(upperPanel,BorderLayout.NORTH);
-        centerPanel.add(greetPanel,BorderLayout.SOUTH);
+        this.add(upperPanel,BorderLayout.NORTH);
+        this.add(greetPanel,BorderLayout.SOUTH);
         this.add(centerPanel);
         
 
@@ -109,7 +116,7 @@ public class MainWindow extends JFrame{
         });
 
         //jobb oldali combobox létrehozása
-        JPanel eastPanel = new JPanel();
+        eastPanel = new JPanel();
         eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.Y_AXIS));
 
         // Tipus alapu szurés
@@ -176,13 +183,19 @@ public class MainWindow extends JFrame{
             }   
         });
         
-        centerPanel.add(eastPanel,BorderLayout.EAST);
+        this.add(eastPanel,BorderLayout.EAST);
         this.setVisible(true);
     }
 
     public void switchView(JPanel newPanel){
         centerPanel.removeAll();
         centerPanel.add(newPanel, BorderLayout.CENTER);
+        boolean isList = (newPanel == movieListPanel);
+
+        upperPanel.setVisible(isList);
+        eastPanel.setVisible(isList);
+        greetPanel.setVisible(isList);
+
         centerPanel.revalidate();
         centerPanel.repaint();
     }

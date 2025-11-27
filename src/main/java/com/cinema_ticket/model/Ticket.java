@@ -4,10 +4,11 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Ticket implements Serializable{
-    TicketType type;
-    int price;
-    Film movie;
-    List<Seat> seats = new ArrayList<>();
+    private String name;
+    private TicketType type;
+    private int price;
+    private Film movie;
+    private List<Seat> seats = new ArrayList<>();
 
     public Ticket(TicketType type, Film movie, List<Seat> seats){
         this.type = type;
@@ -43,5 +44,13 @@ public class Ticket implements Serializable{
 
     public void setSeat(List<Seat> seat){
         this.seats = seat;
+    }
+
+    public String getName(){
+        return this.name;
+    }
+
+    public void setName(String name){
+        this.name = name;
     }
 }
