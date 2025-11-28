@@ -29,6 +29,7 @@ public class Main {
         service.addFilm(new Film(map1, "Star Wars",12,MovieType.ACTION,120,3));
         service.save();
         SeatsServise seatService = new SeatsServise(1);
-        MainWindow view = new MainWindow(service,seatService);
+        //MainWindow view = new MainWindow(service,seatService);
+        Window view = new Window(service, seatService);
     }
 }

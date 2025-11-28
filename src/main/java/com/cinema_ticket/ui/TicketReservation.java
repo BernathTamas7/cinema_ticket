@@ -8,27 +8,101 @@ import java.util.List;
 
 public class TicketReservation extends JPanel{
     private SeatPickPanel seatPickPanel;
-    private MainWindow mainWindow;
+    private Window mainWindow;
     private Film movie;
     private List<Seat> seats;
     private int sum;
 
+    private JPanel mainPanel;
+    private JLabel sumLabel;
     
 
-    public TicketReservation(MainWindow main){
+    public TicketReservation(Window main, List<Seat> seats){
         super();
         setLayout(new BorderLayout());
         mainWindow = main;
-        JLabel upperLabel = new JLabel();
-        this.add(upperLabel,BorderLayout.NORTH);
+        this.seats = seats;
+        mainPanel = new JPanel(new BorderLayout());
 
+        this.add(mainPanel);
     }
 
-    void loadTickets(List<Seat> seats){
+    public void loadTickets(List<Seat> seats){
         this.seats = seats;
     }
 
-    void loadFilm(Film movie){
+    public void loadFilm(Film movie){
         this.movie = movie;
     }
+
+    public void rebuild(){
+        sum = 0;
+        sumLabel = new JLabel("Sum: 0");
+
+        mainPanel.removeAll();
+        mainPanel.setLayout(new BorderLayout());
+
+        JPanel upperPanel = new JPanel();
+        upperPanel.add(new JLabel("Choosing tickets"));
+        mainPanel.add(upperPanel, BorderLayout.NORTH);
+
+        JPanel centerPanel = new JPanel();
+        centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+
+        for (Seat seat : seats) {
+
+            JPanel actualPanel = new JPanel();
+
+            JPanel leftActual = new JPanel();
+            leftActual.setLayout(new BoxLayout(leftActual, BoxLayout.Y_AXIS));
+
+            JLabel ticketTypeLabel = new JLabel("ADULT");
+            leftActual.add(ticketTypeLabel);
+
+            JLabel seatRowColumn = new JLabel(seat.getRow() + " | " + seat.getColumn());
+            leftActual.add(seatRowColumn);
+
+            actualPanel.add(leftActual);
+
+            JComboBox<TicketType> comboBox = new JComboBox<>(TicketType.values());
+            actualPanel.add(comboBox);
+
+            JLabel priceLabel = new JLabel();
+            TicketType selected = (TicketType) comboBox.getSelectedItem();
+            priceLabel.setText("" + selected.getPrice());
+            actualPanel.add(priceLabel);
+
+            comboBox.addActionListener(e -> {
+                TicketType newSelected = (TicketType) comboBox.getSelectedItem();
+                ticketTypeLabel.setText(newSelected.name());
+                priceLabel.setText("" + newSelected.getPrice());
+            });
+
+            sum += selected.getPrice();
+            centerPanel.add(actualPanel);
+        }
+
+        JScrollPane scrollPane = new JScrollPane(centerPanel);
+        mainPanel.add(scrollPane, BorderLayout.CENTER);
+
+        JPanel downPanel = new JPanel();
+        downPanel.add(sumLabel);
+        mainPanel.add(downPanel, BorderLayout.SOUTH);
+
+        JPanel eastPanel = new JPanel();
+        eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.Y_AXIS));
+
+        JButton nextButton = new JButton("Continue");
+        eastPanel.add(nextButton);
+
+        JButton backButton = new JButton("Back");
+        backButton.addActionListener(e -> mainWindow.showSeatPicker(movie));
+        eastPanel.add(backButton);
+
+        mainPanel.add(eastPanel, BorderLayout.EAST);
+
+        mainPanel.revalidate();
+        mainPanel.repaint();
+    }
+   
 }

@@ -3,12 +3,16 @@ import com.cinema_ticket.model.*;
 import com.cinema_ticket.service.SeatsServise;
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class SeatPickPanel extends JPanel{
     Film movie;
-    MainWindow mainWindow;
+    Window mainWindow;
     SeatsServise seatService;
     int ticketNumber = 0;
+    List<Seat> seats;
 
     private JLabel titleLabel;
     private JLabel lengthLabel;
@@ -17,7 +21,8 @@ public class SeatPickPanel extends JPanel{
     private JLabel ticketNumberLabel;
     private JPanel gridPanel;
 
-    public SeatPickPanel(MainWindow main,SeatsServise s){
+    public SeatPickPanel(Window main,SeatsServise s){
+        seats = new ArrayList<>();
         seatService = s;
         mainWindow = main;
         setLayout(new BorderLayout());
@@ -63,7 +68,11 @@ public class SeatPickPanel extends JPanel{
         JButton backButton = new JButton("Back");
         JButton confirmButton = new JButton("Confirm");
         backButton.addActionListener(e -> {
-            mainWindow.switchView(mainWindow.movieListPanel);
+            mainWindow.showMainPanel();
+        });
+        confirmButton.addActionListener(e -> {
+            mainWindow.showTicketReservation(seats, movie);
+            System.out.println(seats.size());
         });
         eastPanel.add(backButton);
         eastPanel.add(confirmButton);
@@ -88,6 +97,7 @@ public class SeatPickPanel extends JPanel{
     }
 
     public void rebuildSeats(){
+        seats.clear();
         ticketNumber = 0;
         ticketNumberLabel.setText("0");
         gridPanel.removeAll();
@@ -100,17 +110,31 @@ public class SeatPickPanel extends JPanel{
                 }else{
                     button.setBackground(Color.GREEN);
                 }
+                button.putClientProperty("row", i);
+                button.putClientProperty("col", j);
                 button.addActionListener(e ->{
-                    JButton tmp = (JButton) e.getSource();
-                    if(tmp.getBackground().equals(Color.GREEN)){
-                        tmp.setBackground(Color.BLUE);
-                        ticketNumber++;
-                    }
-                    else if(tmp.getBackground().equals(Color.BLUE)){
-                        tmp.setBackground(Color.GREEN);
-                        ticketNumber--;
-                    }
-                    ticketNumberLabel.setText(""+ticketNumber);
+                JButton tmp = (JButton) e.getSource();
+                int row = (int) tmp.getClientProperty("row");
+                int col = (int) tmp.getClientProperty("col");
+
+                if(tmp.getBackground().equals(Color.GREEN)){
+                    tmp.setBackground(Color.BLUE);
+                    ticketNumber++;
+
+                    Random rand = new Random();
+                    int x = rand.nextInt(10000);
+
+                    Seat seat = new Seat(x, row, col, SeatStatus.PICKED);
+                    seats.add(seat);
+                }
+                else if(tmp.getBackground().equals(Color.BLUE)){
+                    tmp.setBackground(Color.GREEN);
+                    ticketNumber--;
+
+                    seats.removeIf(s -> s.getRow() == row && s.getColumn() == col);
+                }
+
+                    ticketNumberLabel.setText("" + ticketNumber);
                 });
                 gridPanel.add(button);
             }
