@@ -12,6 +12,7 @@ public class TicketReservation extends JPanel{
     private Film movie;
     private List<Seat> seats;
     private int sum;
+    private List<JComboBox<TicketType>> comboBoxes;
 
     private JPanel mainPanel;
     private JLabel sumLabel;
@@ -19,10 +20,12 @@ public class TicketReservation extends JPanel{
 
     public TicketReservation(Window main, List<Seat> seats){
         super();
+        comboBoxes = new ArrayList<>();
         setLayout(new BorderLayout());
         mainWindow = main;
         this.seats = seats;
         mainPanel = new JPanel(new BorderLayout());
+        
 
         this.add(mainPanel);
     }
@@ -33,6 +36,15 @@ public class TicketReservation extends JPanel{
 
     public void loadFilm(Film movie){
         this.movie = movie;
+    }
+
+    public void sumCalculate(){
+        sum = 0;
+        for(JComboBox<TicketType> item : comboBoxes){
+            TicketType tmp = (TicketType) item.getSelectedItem();
+            sum += tmp.getPrice();
+        }
+        sumLabel.setText("sum: "+sum);
     }
 
     public void rebuild(){
@@ -48,6 +60,7 @@ public class TicketReservation extends JPanel{
 
         JPanel centerPanel = new JPanel();
         centerPanel.setLayout(new BoxLayout(centerPanel, BoxLayout.Y_AXIS));
+        comboBoxes.clear();
 
         for (Seat seat : seats) {
 
@@ -76,7 +89,10 @@ public class TicketReservation extends JPanel{
                 TicketType newSelected = (TicketType) comboBox.getSelectedItem();
                 ticketTypeLabel.setText(newSelected.name());
                 priceLabel.setText("" + newSelected.getPrice());
+                sumCalculate();
             });
+
+            comboBoxes.add(comboBox);
 
             sum += selected.getPrice();
             centerPanel.add(actualPanel);
@@ -93,14 +109,18 @@ public class TicketReservation extends JPanel{
         eastPanel.setLayout(new BoxLayout(eastPanel, BoxLayout.Y_AXIS));
 
         JButton nextButton = new JButton("Continue");
-        eastPanel.add(nextButton);
 
+        eastPanel.add(nextButton);
+        nextButton.addActionListener(e -> {
+            mainWindow.showTicketData(movie, seats);
+        });
         JButton backButton = new JButton("Back");
         backButton.addActionListener(e -> mainWindow.showSeatPicker(movie));
         eastPanel.add(backButton);
 
         mainPanel.add(eastPanel, BorderLayout.EAST);
 
+        sumCalculate();
         mainPanel.revalidate();
         mainPanel.repaint();
     }

@@ -19,6 +19,7 @@ public class Window extends JFrame implements ScreenNavigator{
     public MovieListPanel movieListPanel;
     public SeatPickPanel seatPickPanel;
     public TicketReservation ticketReservation;
+    public TicketData ticketData;
 
     public Window(FilmService filmService, SeatsServise seatsServise){
         this.setSize(800,600);
@@ -28,6 +29,7 @@ public class Window extends JFrame implements ScreenNavigator{
         movieListPanel = new MovieListPanel(this, service);
         layout = new CardLayout();
         cards = new JPanel(layout);
+        ticketData = new TicketData(this);
 
         mainMenuCard = new JPanel(new BorderLayout());
 
@@ -180,6 +182,7 @@ public class Window extends JFrame implements ScreenNavigator{
         cards.add(mainMenuCard, "MainMenuCard");
         cards.add(seatPickPanel, "SeatPickPanel");
         cards.add(ticketReservation, "TicketReservation");
+        cards.add(ticketData, "TicketData");
 
         add(cards);
         setSize(800,600);
@@ -205,5 +208,12 @@ public class Window extends JFrame implements ScreenNavigator{
         ticketReservation.loadTickets(seats);
         ticketReservation.rebuild();
         layout.show(cards, "TicketReservation");
+    }
+
+    public void showTicketData(Film movie, List<Seat> seats){
+        ticketData.loadFilm(movie);
+        ticketData.loadSeats(seats);
+        System.out.println(seats.size());
+        layout.show(cards, "TicketData");
     }
 }

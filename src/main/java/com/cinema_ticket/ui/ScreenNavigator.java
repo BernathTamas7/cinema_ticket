@@ -6,4 +6,5 @@ public interface ScreenNavigator {
     void showMainPanel();
     void showSeatPicker(Film film);
     void showTicketReservation(List<Seat> seats, Film film);
+    void showTicketData(Film movie, List<Seat> seats);
 }
