@@ -80,7 +80,4 @@ public class Film implements Serializable{
         this.dimension = dimension;
     }
 
-    public void veddKi(){
-        System.out.println("valami");
-    }
 }
