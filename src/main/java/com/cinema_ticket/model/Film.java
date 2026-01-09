@@ -79,4 +79,8 @@ public class Film implements Serializable{
     public void setDimension(int dimension) {
         this.dimension = dimension;
     }
+
+    public void veddKi(){
+        System.out.println("valami");
+    }
 }
